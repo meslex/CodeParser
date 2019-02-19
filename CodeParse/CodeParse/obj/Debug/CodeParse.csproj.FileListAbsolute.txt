@@ -1,0 +1,10 @@
+C:\Users\meslex\OneDrive\CSharp\Third Course\CodeParse\CodeParse\bin\Debug\CodeParse.exe.config
+C:\Users\meslex\OneDrive\CSharp\Third Course\CodeParse\CodeParse\bin\Debug\CodeParse.exe
+C:\Users\meslex\OneDrive\CSharp\Third Course\CodeParse\CodeParse\bin\Debug\CodeParse.pdb
+C:\Users\meslex\OneDrive\CSharp\Third Course\CodeParse\CodeParse\obj\Debug\CodeParse.csprojAssemblyReference.cache
+C:\Users\meslex\OneDrive\CSharp\Third Course\CodeParse\CodeParse\obj\Debug\CodeParse.Form1.resources
+C:\Users\meslex\OneDrive\CSharp\Third Course\CodeParse\CodeParse\obj\Debug\CodeParse.Properties.Resources.resources
+C:\Users\meslex\OneDrive\CSharp\Third Course\CodeParse\CodeParse\obj\Debug\CodeParse.csproj.GenerateResource.cache
+C:\Users\meslex\OneDrive\CSharp\Third Course\CodeParse\CodeParse\obj\Debug\CodeParse.csproj.CoreCompileInputs.cache
+C:\Users\meslex\OneDrive\CSharp\Third Course\CodeParse\CodeParse\obj\Debug\CodeParse.exe
+C:\Users\meslex\OneDrive\CSharp\Third Course\CodeParse\CodeParse\obj\Debug\CodeParse.pdb
