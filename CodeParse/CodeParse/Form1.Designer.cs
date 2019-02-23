@@ -40,7 +40,7 @@
             this.output.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.output.Location = new System.Drawing.Point(657, 12);
             this.output.Name = "output";
-            this.output.Size = new System.Drawing.Size(499, 531);
+            this.output.Size = new System.Drawing.Size(541, 531);
             this.output.TabIndex = 0;
             this.output.Text = "";
             // 
@@ -78,13 +78,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1168, 586);
+            this.ClientSize = new System.Drawing.Size(1210, 586);
             this.Controls.Add(this.buttonProcessFile);
             this.Controls.Add(this.buttonOpenFile);
             this.Controls.Add(this.input);
             this.Controls.Add(this.output);
             this.Name = "Form1";
             this.Text = "Process File";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
 
         }
@@ -98,3 +99,4 @@
     }
 }
 
+// private ;

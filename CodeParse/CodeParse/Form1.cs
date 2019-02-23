@@ -9,14 +9,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using System.Configuration;
 
 namespace CodeParse
 {
     public partial class Form1 : Form
     {
-        private const string FindFunctions = @"((public|private|protected)\s|)((virtual|override)\s|)(static\s|)(\w+\[.*\]|\w+\<.*\>|\w+)\s[A-Z]\w+\(((\w+\s\w+|\w+\[.*\]\s\w+|\w+\<.*\>\s\w+)+|)\)";
-        private const string FindVariable = @"((public|private|protected)\s|)(\w+\[.*\]|\w+\<.*\>|\w+)\s[a-z]\w*(;|\s=)";
-        private const string FindClass = @"class\s[A-Z]\w+";
+        //private const string FindFunctions = @"((public|private|protected)\s|)((virtual|override)\s|)(static\s|)(\w+\[.*\]|\w+\<.*\>|\w+)\s[A-Z]\w+\(((\w+\s\w+|\w+\[.*\]\s\w+|\w+\<.*\>\s\w+)+|)\)";
+        //private const string FindVariable = @"((public|private|protected)\s|)(\w+\[.*\]|\w+\<.*\>|\w+)\s[a-z]\w*(;|\s=)";
+        //private const string FindClass = @"class\s[A-Z]\w+";
+
+        List<DataEntity> identifiersToFind = new List<DataEntity>();
 
         public Form1()
         {
@@ -50,37 +53,59 @@ namespace CodeParse
 
         private void buttonProcessFile_Click(object sender, EventArgs e)
         {
+            PrintIdentifiers(identifiersToFind);
+        }
+
+        private void PrintIdentifiers(List<DataEntity> list)
+        {
             output.Text = "";
-            PrintClass();
-            PrintFunctions();
-            PrintVariables();
+            foreach (DataEntity dt in list)
+            {
+                output.Text += "\n" + dt.Key+ ":\n";
+                MatchCollection mc = Regex.Matches(input.Text, dt.Value);
+                if(mc.Count == 0)
+                {
+                    output.Text += "***Couldn't find anything***\n";
+                }
+                else
+                {
+                    foreach (Match match in mc)
+                    {
+                        output.Text += Regex.Replace(match.Value, @"(;|\s=)$", "") + "\n";
+                    }
+                }
+                
+            }
         }
 
-        private void PrintFunctions()
+        private void ReadConfigurationFile()
         {
-            output.Text += "Functions:\n";
-            foreach(Match match in Regex.Matches(input.Text, FindFunctions)){
-                output.Text += '\t'+ match.Value+';' + "\n";
+            identifiersToFind.Clear();
+            try
+            {
+                var appSettings = ConfigurationManager.AppSettings;
+                if (appSettings.Count == 0)
+                {
+                    MessageBox.Show("Something happens with configuration file. Sorry...");
+                    Application.Exit();
+                }
+                else
+                {
+                    foreach(string key in appSettings.AllKeys)
+                    {
+                        identifiersToFind.Add(new DataEntity(key, RegularExpressionCreator.CreateRegularExpression(appSettings[key], key)));
+                    }
+                }
             }
-            
+            catch (ConfigurationErrorsException)
+            {
+                Console.WriteLine("Error reading app settings");
+            }
         }
 
-        private void PrintVariables()
+        private void Form1_Load(object sender, EventArgs e)
         {
-            output.Text += "Variables:\n";
-            foreach (Match match in Regex.Matches(input.Text, FindVariable)){
-                output.Text += '\t' + Regex.Replace(match.Value, "(;|=)$", "") + "\n";
-            }
-
-        }
-
-        private void PrintClass()
-        {
-            output.Text += "Classes:\n";
-            foreach (Match match in Regex.Matches(input.Text, FindClass)){
-                output.Text += '\t' + match.Value + "\n";
-            }
-
+            ReadConfigurationFile();
         }
     }
 }
